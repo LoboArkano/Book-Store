@@ -60,7 +60,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Devise Mailer
-  config.action_controller.raise_delivery_errors = false
+  # config.action_controller.raise_delivery_errors = false
   config.action_controller.perform_caching = false
   config.action_controller.default_url_options = { host: 'localhost', port: 3000 }
 end
