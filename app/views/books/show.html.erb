@@ -1,0 +1,17 @@
+<table>
+  <tbody>
+    <div><%= cl_image_tag(@book.picture.key, width: 200, crop: :scale) %></div>
+    <div>Title: <%= @book.title %></div>
+    <div>Description: <%= @book.description %></div>
+    <div>Author: <%= @book.author %></div>
+    <div>Sold by: <%= @book.seller.name %></div>
+    <div>Price: <%= number_to_currency(@book.price) %></div>
+    <tr>
+      <% if seller_signed_in? %>
+        <td><%= link_to 'Edit', edit_book_path(@book) %></td>
+        <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+      <td><%= link_to 'Back', books_path %></td>
+    </tr>
+  </tbody>
+</table>

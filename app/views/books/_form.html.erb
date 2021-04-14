@@ -1,0 +1,23 @@
+<%= simple_form_for @book, local: true do |f| %>
+  <%= f.error_notification %>
+  
+  <div class="form-inputs">
+    <%= f.input :title,
+                required: true,
+                autofocus: true %>
+    <%= f.input :description,
+                required: true %>
+    <%= f.input :author,
+                required: true %>
+    <%= f.input :price,
+                required: true %>
+    <%= f.input :stock,
+                required: true %>
+    <%= f.label :picture, 'Add an image: ' %>
+    <%= f.file_field :picture, direct_upload: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
