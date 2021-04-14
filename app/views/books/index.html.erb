@@ -3,10 +3,12 @@
 <table>
   <tbody>
     <% @books.each do |book| %>
-      <div><%= cl_image_tag(book.picture.key, width: 200, crop: :scale) %></div>
-      <div><%= book.title %></div>
-      <div><%= number_to_currency(book.price) %></div>
       <tr>
+        <td>
+          <div><%= cl_image_tag(book.picture.key, width: 200, crop: :scale) %></div>
+          <div><%= book.title %></div>
+          <div><%= number_to_currency(book.price) %></div>
+        </td>
         <td><%= link_to 'Show', book %></td>
         <% if seller_signed_in? %>
           <td><%= link_to 'Edit', edit_book_path(book) %></td>
