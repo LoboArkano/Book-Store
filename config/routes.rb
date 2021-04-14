@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :buyers
+  devise_for :buyers, controllers: {
+    registrations: 'registrations'
+  }
   devise_for :sellers, controllers: {
     registrations: 'registrations'
   }

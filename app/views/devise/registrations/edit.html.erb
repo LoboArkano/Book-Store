@@ -5,7 +5,12 @@
 
   <div class="form-inputs">
     <%= f.input :name, required: true, autofocus: true %>
-    <%= f.input :phone, required: true %>
+    <% if resource_name == :seller %>
+      <%= f.input :phone, required: true %>
+    <% end %>
+    <% if resource_name == :buyer %>
+      <%= f.input :address, required: true %>
+    <% end %>
     <%= f.input :email, required: true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
