@@ -12,7 +12,7 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = current_seller.book.build
+    @book = current_seller.books.build
   end
 
   # GET /books/1/edit
@@ -20,7 +20,7 @@ class BooksController < ApplicationController
 
   # POST /books or /books.json
   def create
-    @book = current_seller.book.build(book_params)
+    @book = current_seller.books.build(book_params)
 
     respond_to do |format|
       if @book.save
