@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :books
   devise_for :buyers, controllers: {
     registrations: 'registrations'
   }
@@ -6,5 +7,5 @@ Rails.application.routes.draw do
     registrations: 'registrations'
   }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'home#index'
+  root 'books#index'
 end
