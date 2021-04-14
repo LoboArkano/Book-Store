@@ -1,0 +1,20 @@
+<h1>Books</h1>
+
+<table>
+  <tbody>
+    <% @books.each do |book| %>
+      <div><%= cl_image_tag(book.picture.key, width: 200, crop: :scale) %></div>
+      <div><%= book.title %></div>
+      <div><%= number_to_currency(book.price) %></div>
+      <tr>
+        <td><%= link_to 'Show', book %></td>
+        <% if seller_signed_in? %>
+          <td><%= link_to 'Edit', edit_book_path(book) %></td>
+          <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
