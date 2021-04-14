@@ -31,6 +31,7 @@
         </div>
       <% elsif buyer_signed_in? %>
         <div>
+          <div>Cart <%= items_added%></div>
           <div>
             <%= link_to current_buyer.name, edit_buyer_registration_path %>
             <div>Wallet: <%= number_to_currency(current_buyer.wallet) %></div>
