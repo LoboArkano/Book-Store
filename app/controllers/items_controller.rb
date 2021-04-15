@@ -8,9 +8,12 @@ class ItemsController < ApplicationController
 
   def create
     @item = current_buyer.items.new(book_id: params[:book_id])
+    item_book
 
     respond_to do |format|
       if @item.save
+        @book.stock -= 1
+        @book.save
         format.html { redirect_to items_index_path, notice: 'Book was added to the shopping cart.' }
         format.json { render :show, status: :created, location: @item }
       else
@@ -22,9 +25,11 @@ class ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    book = Book.find(@item.book_id)
+    item_book
+    @book.stock += 1
+    @book.save
     respond_to do |format|
-      format.html { redirect_to items_index_path, notice: "#{book.title} was deleted of the shopping cart." }
+      format.html { redirect_to items_index_path, notice: "#{@book.title} was deleted of the shopping cart." }
       format.json { head :no_content }
     end
   end
@@ -33,5 +38,9 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def item_book
+    @book = Book.find(@item.book_id)
   end
 end
