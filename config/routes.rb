@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :books
+  get 'items/index'
+
+  resources :books do
+    resources :items, only: %i[create]
+  end
   devise_for :buyers, controllers: {
     registrations: 'registrations'
   }

@@ -11,6 +11,9 @@
         <td><%= link_to 'Edit', edit_book_path(@book) %></td>
         <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <% end %>
+      <% if buyer_signed_in? %>
+        <td><%= link_to 'Add to cart', book_items_path(@book.id), method: :post %></td>
+      <% end %>
       <td><%= link_to 'Back', books_path %></td>
     </tr>
   </tbody>
