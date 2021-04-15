@@ -6,13 +6,9 @@ class ItemsController < ApplicationController
   def purchase
     if @total <= current_buyer.wallet
       items = current_buyer.items.all
+      store = Store.all.first
 
-      items.each do |item|
-        book = Book.find(item.book_id)
-        current_buyer.wallet -= book.price
-        current_buyer.save
-        item.destroy
-      end
+      payment(items, store)
 
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Thank you for buy-in BookStore!' }
@@ -72,5 +68,20 @@ class ItemsController < ApplicationController
     book_ids = current_buyer.items.all.pluck(:book_id)
     books = Book.all.where(id: book_ids)
     @total = books.pluck(:price).sum
+  end
+
+  def payment(items, store)
+    items.each do |item|
+      book = Book.find(item.book_id)
+      book.seller.wallet += (book.price - 1)
+      book.seller.save
+      book.seller.sales.create(book_id: book.id)
+    end
+
+    store.revenue += items.count
+    store.save
+    current_buyer.wallet -= @total
+    current_buyer.save
+    items.destroy_all
   end
 end
