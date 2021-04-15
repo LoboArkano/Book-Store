@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :set_item, only: %i[destroy]
   before_action :authenticate_buyer!
 
   def index
@@ -17,5 +18,20 @@ class ItemsController < ApplicationController
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy
+    @item.destroy
+    book = Book.find(@item.book_id)
+    respond_to do |format|
+      format.html { redirect_to items_index_path, notice: "#{book.title} was deleted of the shopping cart." }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 end

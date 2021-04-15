@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'items/index'
 
+  resources :items, only: %i[destroy]
   resources :books do
     resources :items, only: %i[create]
   end
