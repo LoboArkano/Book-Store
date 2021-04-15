@@ -71,11 +71,13 @@ class ItemsController < ApplicationController
   end
 
   def payment(items, store)
+    revenue = 1
+
     items.each do |item|
       book = Book.find(item.book_id)
-      book.seller.wallet += (book.price - 1)
+      book.seller.wallet += (book.price - revenue)
       book.seller.save
-      book.seller.sales.create(book_id: book.id)
+      book.seller.sales.create(book_title: book.title, book_price: book.price, profit: (book.price - revenue))
     end
 
     store.revenue += items.count
