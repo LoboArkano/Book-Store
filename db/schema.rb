@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_205212) do
+ActiveRecord::Schema.define(version: 2021_04_15_184139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,14 @@ ActiveRecord::Schema.define(version: 2021_04_14_205212) do
     t.index ["buyer_id"], name: "index_items_on_buyer_id"
   end
 
+  create_table "sales", force: :cascade do |t|
+    t.bigint "seller_id"
+    t.integer "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seller_id"], name: "index_sales_on_seller_id"
+  end
+
   create_table "sellers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -90,4 +98,5 @@ ActiveRecord::Schema.define(version: 2021_04_14_205212) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "books", "sellers"
   add_foreign_key "items", "buyers"
+  add_foreign_key "sales", "sellers"
 end

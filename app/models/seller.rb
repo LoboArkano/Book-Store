@@ -5,4 +5,5 @@ class Seller < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :books
+  has_many :sales
 end
