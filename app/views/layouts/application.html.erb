@@ -11,14 +11,10 @@
 
   <body>
     <% if flash[:notice] %>
-      <div>
-        <p><%= notice %></p>
-      </div>
+      <div class="alert alert-success"><%= notice %></div>
     <% end %>
     <% if flash[:alert] %>
-      <div>
-        <p><%= alert %></p>
-      </div>
+      <div class="alert alert-danger"><%= alert %></div>
     <% end %>
     <nav>
       <% if seller_signed_in? %>
