@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'items/index'
+  post 'items/purchase'
 
   resources :items, only: %i[destroy]
   resources :books do
