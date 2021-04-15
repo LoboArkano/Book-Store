@@ -4,6 +4,6 @@ class Seller < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :books
-  has_many :sales
+  has_many :books, dependent: :delete_all
+  has_many :sales, dependent: :delete_all
 end
