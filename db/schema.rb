@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_181428) do
+ActiveRecord::Schema.define(version: 2021_04_15_195141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,24 @@ ActiveRecord::Schema.define(version: 2021_04_14_181428) do
     t.index ["reset_password_token"], name: "index_buyers_on_reset_password_token", unique: true
   end
 
+  create_table "items", force: :cascade do |t|
+    t.bigint "buyer_id"
+    t.integer "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_items_on_buyer_id"
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.bigint "seller_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "book_title"
+    t.decimal "book_price", precision: 5, scale: 2
+    t.decimal "profit", precision: 5, scale: 2
+    t.index ["seller_id"], name: "index_sales_on_seller_id"
+  end
+
   create_table "sellers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -79,6 +97,14 @@ ActiveRecord::Schema.define(version: 2021_04_14_181428) do
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end
 
+  create_table "stores", force: :cascade do |t|
+    t.integer "revenue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "books", "sellers"
+  add_foreign_key "items", "buyers"
+  add_foreign_key "sales", "sellers"
 end

@@ -3,6 +3,7 @@
 <table>
   <tbody>
     <% @books.each do |book| %>
+      <% next if book.stock.zero? %>
       <tr>
         <td>
           <div><%= cl_image_tag(book.picture.key, width: 200, crop: :scale) %></div>
@@ -13,6 +14,9 @@
         <% if seller_signed_in? %>
           <td><%= link_to 'Edit', edit_book_path(book) %></td>
           <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <% if buyer_signed_in? %>
+          <td><%= link_to 'Add to cart', book_items_path(book.id), method: :post %></td>
         <% end %>
       </tr>
     <% end %>

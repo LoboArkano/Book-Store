@@ -1,0 +1,8 @@
+<% @items.each do |item| %>
+  <% @book = Book.find(item.book_id) %>
+  <div><%= @book.seller.name %></div>
+  <div><%= @book.title %></div>
+  <div><%= number_to_currency(@book.price) %></div>
+  <%= link_to 'Cancel', item, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+<div><%= link_to 'Purchase', items_purchase_path, method: :post %></div>

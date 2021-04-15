@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  resources :books
+  get 'items/index'
+  post 'items/purchase'
+
+  resources :sales, only: %i[index]
+  resources :items, only: %i[destroy]
+  resources :books do
+    resources :items, only: %i[create]
+  end
   devise_for :buyers, controllers: {
     registrations: 'registrations'
   }

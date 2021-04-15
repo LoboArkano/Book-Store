@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
-  belongs_to :seller, dependent: :destroy
+  belongs_to :seller
 
   has_one_attached :picture
 
