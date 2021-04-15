@@ -1,20 +1,28 @@
 class ItemsController < ApplicationController
+  before_action :total_price, only: %i[purchase]
   before_action :set_item, only: %i[destroy]
   before_action :authenticate_buyer!
 
   def purchase
-    items = current_buyer.items.all
+    if @total <= current_buyer.wallet
+      items = current_buyer.items.all
 
-    items.each do |item|
-      book = Book.find(item.book_id)
-      current_buyer.wallet -= book.price
-      current_buyer.save
-      item.destroy
-    end
+      items.each do |item|
+        book = Book.find(item.book_id)
+        current_buyer.wallet -= book.price
+        current_buyer.save
+        item.destroy
+      end
 
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Thank you for buy-in BookStore' }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Thank you for buy-in BookStore!' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to items_index_path, alert: 'There is no enough money in your wallet!' }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -58,5 +66,11 @@ class ItemsController < ApplicationController
 
   def item_book
     @book = Book.find(@item.book_id)
+  end
+
+  def total_price
+    book_ids = current_buyer.items.all.pluck(:book_id)
+    books = Book.all.where(id: book_ids)
+    @total = books.pluck(:price).sum
   end
 end
