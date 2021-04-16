@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <header>
       <%= render 'layouts/navbar' %>
     </header>
@@ -19,7 +19,9 @@
     <% if flash[:alert] %>
       <div class="alert alert-danger"><%= alert %></div>
     <% end %>
-    <%= yield %>
+    <main class="flex-fill">
+      <%= yield %>
+    </main>
     <%= render 'layouts/footer' %>
   </body>
 </html>

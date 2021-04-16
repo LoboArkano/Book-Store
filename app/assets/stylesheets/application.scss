@@ -13,6 +13,11 @@
 
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import 'bootstrap';
+@import 'books';
+
+* {
+  box-sizing: border-box;
+}
 
 .alert {
   margin-bottom: 0 !important;

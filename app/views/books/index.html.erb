@@ -1,26 +1,31 @@
-<h1>Books</h1>
-
-<table>
-  <tbody>
+<section class="container-fluid">
+  <div class="row">
     <% @books.each do |book| %>
       <% next if book.stock.zero? %>
-      <tr>
-        <td>
-          <div><%= cl_image_tag(book.picture.key, width: 200, crop: :scale) %></div>
-          <div><%= book.title %></div>
-          <div><%= number_to_currency(book.price) %></div>
-        </td>
-        <td><%= link_to 'Show', book %></td>
-        <% if seller_signed_in? %>
-          <td><%= link_to 'Edit', edit_book_path(book) %></td>
-          <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-        <% if buyer_signed_in? %>
-          <td><%= link_to 'Add to cart', book_items_path(book.id), method: :post %></td>
-        <% end %>
-      </tr>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card my-2">
+          <div class="card-header">
+            <%= cl_image_tag(book.picture.key, width: 200, crop: :scale, class: 'card-img-top') %>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title"><%= book.title %></h4>
+            <div class="card-text">Price: <%= number_to_currency(book.price) %></div>
+            <div class="card-text">Sold by: <%= book.seller.name %></div>
+          </div>
+          <div class="card-footer">
+            <div class="btn-group-sm btn-group">
+              <%= link_to 'Show', book, class: 'btn btn-primary', role: 'button' %>
+              <% if seller_signed_in? && current_seller.id == book.seller.id %>
+                <%= link_to 'Edit', edit_book_path(book), class: 'btn btn-info', role: 'button' %>
+                <%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', role: 'button' %>
+              <% end %>
+              <% if buyer_signed_in? %>
+                <%= link_to 'Add to cart', book_items_path(book.id), method: :post, class: 'btn btn-success', role: 'button' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
+  </div>
+</section>
