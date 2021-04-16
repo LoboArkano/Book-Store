@@ -10,41 +10,66 @@
   </head>
 
   <body>
+    <header>
+      <nav class="navbar navbar-dark navbar-expand-md bg-dark">
+        <%= link_to 'Book Store', root_path, class: "navbar-brand text-light" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav ml-auto">
+            <% if seller_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "Add Book", new_book_path, class: "nav-link text-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to current_seller.name, edit_seller_registration_path, class: "nav-link text-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Log Out", destroy_seller_session_path, method: :delete, class: "nav-link text-light" %>
+              </li>
+            <% elsif buyer_signed_in? %>
+              <li class="nav-item">
+                <%= link_to items_index_path, class: "nav-link text-light" do %>
+                  Cart <%= items_added%>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to current_buyer.name, edit_buyer_registration_path, class: "nav-link text-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Log Out", destroy_buyer_session_path, method: :delete, class: "nav-link text-light" %>
+              </li>
+            <% else %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Seller
+                </a>
+                <div class="dropdown-menu">
+                  <%= link_to "Sign In", new_seller_session_path, class: "dropdown-item" %>
+                  <%= link_to "Sign up", new_seller_registration_path, class: "dropdown-item" %>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Buyer
+                </a>
+                <div class="dropdown-menu">
+                  <%= link_to "Sign In", new_buyer_session_path, class: "dropdown-item" %>
+                  <%= link_to "Sign up", new_buyer_registration_path, class: "dropdown-item" %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </header>
     <% if flash[:notice] %>
       <div class="alert alert-success"><%= notice %></div>
     <% end %>
     <% if flash[:alert] %>
       <div class="alert alert-danger"><%= alert %></div>
     <% end %>
-    <nav>
-      <% if seller_signed_in? %>
-        <div>
-          <div>
-            <%= link_to "Add Book", new_book_path %>
-            <%= link_to current_seller.name, edit_seller_registration_path %>
-            <%= link_to "Log Out", destroy_seller_session_path, method: :delete %>
-          </div>
-        </div>
-      <% elsif buyer_signed_in? %>
-        <div>
-          <%= link_to items_index_path do %>
-            <div>Cart <%= items_added%></div>
-          <% end %>
-          <div>
-            <%= link_to current_buyer.name, edit_buyer_registration_path %>
-            <div>Wallet: <%= number_to_currency(current_buyer.wallet) %></div>
-            <%= link_to "Log Out", destroy_buyer_session_path, method: :delete %>
-          </div>
-        </div>
-      <% else %>
-        <p>Seller</p>
-        <%= link_to "Sign In", new_seller_session_path %>
-        <%= link_to "Sign up", new_seller_registration_path %>
-        <p>Buyer</p>
-        <%= link_to "Sign In", new_buyer_session_path %>
-        <%= link_to "Sign up", new_buyer_registration_path %>
-      <% end %>
-    </nav>
     <%= yield %>
   </body>
 </html>
