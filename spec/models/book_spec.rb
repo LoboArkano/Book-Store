@@ -10,9 +10,9 @@ RSpec.describe Book, type: :model do
     end
 
     context 'validation tests' do
-      let(:seller) { Seller.create(name: 'Lorem', phone: '333', email: 'email@email.com', password: '123') }
+      let(:seller) { Seller.create!(name: 'Lorem', phone: '333', email: 'email@email.com', password: '12345678') }
       let(:book) do
-        Book.create(
+        Book.create!(
           seller_id: seller.id, title: 'Dracula', description: 'Lorem', author: 'Lorem', price: 2.05, stock: 4
         )
       end
