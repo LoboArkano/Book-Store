@@ -1,8 +1,18 @@
-<div>
-  <h3>Wallet: <%= number_to_currency(current_seller.wallet) %></h3>
-  <% @sales.each do |sale| %>
-    <p>Title: <%= sale.book_title %></p>
-    <p>Price: <%= number_to_currency(sale.book_price) %></p>
-    <p>Profit: <%= number_to_currency(sale.profit) %></p>
+<section class="container-fluid p-3">
+  <% unless @sales.empty? %>
+    <% @sales.each do |sale| %>
+      <div class="d-flex flex-wrap align-items-center border border-primary my-3 py-2 px-1">
+        <div class="px-2 font-weight-bold"><%= sale.book_title %></div>
+        <div class="px-2">Sold on: <%= sale.created_at.strftime('%Y-%m-%d %H:%M') %></div>
+        <div class="px-2">Price: <%= number_to_currency(sale.book_price) %></div>
+        <div class="ml-auto px-2">Profit: <%= number_to_currency(sale.profit) %></div>
+      </div>
+    <% end %>
+    <div class="d-flex justify-content-end align-items-center my-4">
+      <h5>Wallet: <%= number_to_currency(current_seller.wallet) %></h5>
+    </div>
+    <%= link_to 'Sell more books!', new_book_path, class: "btn btn-primary" %>
+  <% else %>
+    <h1 class="text-center my-5">Go to sell a ton of <%= link_to 'books!', new_book_path %></h1>
   <% end %>
-</div>
+</section>

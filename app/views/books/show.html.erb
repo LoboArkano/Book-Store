@@ -1,20 +1,27 @@
-<table>
-  <tbody>
-    <div><%= cl_image_tag(@book.picture.key, width: 200, crop: :scale) %></div>
-    <div>Title: <%= @book.title %></div>
-    <div>Description: <%= @book.description %></div>
-    <div>Author: <%= @book.author %></div>
-    <div>Sold by: <%= @book.seller.name %></div>
-    <div>Price: <%= number_to_currency(@book.price) %></div>
-    <tr>
-      <% if seller_signed_in? %>
-        <td><%= link_to 'Edit', edit_book_path(@book) %></td>
-        <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% end %>
-      <% if buyer_signed_in? %>
-        <td><%= link_to 'Add to cart', book_items_path(@book.id), method: :post %></td>
-      <% end %>
-      <td><%= link_to 'Back', books_path %></td>
-    </tr>
-  </tbody>
-</table>
+<section class="container-fluid">
+  <% unless @book.stock.zero? %>
+    <div class="d-flex flex-column flex-md-row my-3 py-2 bg-light">
+      <div>
+        <%= cl_image_tag(@book.picture.key, width: 200, crop: :scale, class: 'img-fluid show-img') %>
+      </div>
+      <div class="d-flex flex-column px-3 py-4 py-md-0">
+        <h4 class="text-title"><%= @book.title %></h4>
+        <div><%= @book.description %></div>
+        <div>Author: <%= @book.author %></div>
+        <div>Price: <%= number_to_currency(@book.price) %></div>
+        <div>Sold by: <%= @book.seller.name %></div>
+        <div class="d-flex my-2">
+        <% if seller_signed_in? && current_seller.id == @book.seller.id %>
+          <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-info', rol: 'button' %>
+          <%= link_to 'Destroy', @book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger mx-2', rol: 'button' %>
+        <% end %>
+        <% if buyer_signed_in? %>
+          <%= link_to 'Add to cart', book_items_path(@book.id), method: :post, class: 'btn btn-success', rol: 'button' %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <h1 class="text-center my-4">Out of Stock</h1>
+  <% end %>
+</section>

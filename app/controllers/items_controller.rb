@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :total_price, only: %i[purchase]
+  before_action :total_price, only: %i[purchase index]
   before_action :set_item, only: %i[destroy]
   before_action :authenticate_buyer!
 

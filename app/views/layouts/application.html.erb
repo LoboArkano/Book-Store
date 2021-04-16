@@ -9,46 +9,19 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
+    <header>
+      <%= render 'layouts/navbar' %>
+    </header>
     <% if flash[:notice] %>
-      <div>
-        <p><%= notice %></p>
-      </div>
+      <div class="alert alert-success"><%= notice %></div>
     <% end %>
     <% if flash[:alert] %>
-      <div>
-        <p><%= alert %></p>
-      </div>
+      <div class="alert alert-danger"><%= alert %></div>
     <% end %>
-    <nav>
-      <% if seller_signed_in? %>
-        <div>
-          <div>
-            <%= link_to "Add Book", new_book_path %>
-            <%= link_to current_seller.name, edit_seller_registration_path %>
-            <%= link_to "Log Out", destroy_seller_session_path, method: :delete %>
-          </div>
-        </div>
-      <% elsif buyer_signed_in? %>
-        <div>
-          <%= link_to items_index_path do %>
-            <div>Cart <%= items_added%></div>
-          <% end %>
-          <div>
-            <%= link_to current_buyer.name, edit_buyer_registration_path %>
-            <div>Wallet: <%= number_to_currency(current_buyer.wallet) %></div>
-            <%= link_to "Log Out", destroy_buyer_session_path, method: :delete %>
-          </div>
-        </div>
-      <% else %>
-        <p>Seller</p>
-        <%= link_to "Sign In", new_seller_session_path %>
-        <%= link_to "Sign up", new_seller_registration_path %>
-        <p>Buyer</p>
-        <%= link_to "Sign In", new_buyer_session_path %>
-        <%= link_to "Sign up", new_buyer_registration_path %>
-      <% end %>
-    </nav>
-    <%= yield %>
+    <main class="flex-fill">
+      <%= yield %>
+    </main>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
