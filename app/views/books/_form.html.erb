@@ -1,23 +1,42 @@
-<%= simple_form_for @book, local: true do |f| %>
-  <%= f.error_notification %>
-  
-  <div class="form-inputs">
+<%= simple_form_for @book, local: true, rol: 'form' do |f| %>
+  <div class="text-danger"><%= f.error_notification %></div>
+
+  <div class="form-group">
     <%= f.input :title,
                 required: true,
-                autofocus: true %>
+                autofocus: true,
+                label_html: { class: 'font-weight-bold' },
+                input_html: { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
     <%= f.input :description,
-                required: true %>
+                required: true,
+                label_html: { class: 'font-weight-bold' },
+                input_html: { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
     <%= f.input :author,
-                required: true %>
+                required: true,
+                label_html: { class: 'font-weight-bold' },
+                input_html: { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
     <%= f.input :price,
-                required: true %>
+                required: true,
+                label_html: { class: 'font-weight-bold' },
+                input_html: { min: 1.01, class: 'form-control' } %>
+  </div>
+  <div class="form-group">
     <%= f.input :stock,
-                required: true %>
-    <%= f.label :picture, 'Add an image: ' %>
-    <%= f.file_field :picture, direct_upload: true %>
+                required: true,
+                label_html: { class: 'font-weight-bold' },
+                input_html: { min: 0, class: 'form-control' } %>
+  </div>
+  <%= f.label :picture, 'Add an image: ', class: 'font-weight-bold' %>
+  <%= f.file_field :picture, direct_upload: true %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions my-3">
+    <%= f.button :submit, class: 'btn btn-success' %>
   </div>
 <% end %>
