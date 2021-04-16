@@ -1,7 +1,7 @@
 <section class="container-fluid">
   <div class="row">
     <% @books.each do |book| %>
-      <% next if book.stock.zero? %>
+      <% next if book.stock.zero? && !seller_signed_in? %>
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="card my-2">
           <div class="card-header">
