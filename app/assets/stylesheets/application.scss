@@ -19,6 +19,10 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .alert {
   margin-bottom: 0 !important;
 }
