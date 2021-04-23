@@ -1,4 +1,8 @@
 <section class="container-fluid">
+  <%= form_tag(books_path, method: :get, class: 'form-inline') do %>
+    <%= text_field_tag(:search, params[:serach], class: 'form-control search-bar') %>
+    <%= submit_tag ("Search"), class: 'btn btn-info' %>
+  <% end %>
   <div class="row">
     <% @books.each do |book| %>
       <% next if book.stock.zero? && !seller_signed_in? %>
