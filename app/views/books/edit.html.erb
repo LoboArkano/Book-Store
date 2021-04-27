@@ -1,0 +1,10 @@
+<section class="container-fluid p-4">
+  <h1>Editing Book</h1>
+
+  <%= render 'form', book: @book %>
+
+  <div class="my-3">
+    <%= link_to 'Show', @book, class: 'btn btn-info', rol: 'button' %>
+    <%= link_to 'Back', books_path, class: 'btn btn-info mx-4', rol: 'button' %>
+  </div>
+</section>

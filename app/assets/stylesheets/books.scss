@@ -1,0 +1,25 @@
+.search-bar {
+  flex-grow: 1;
+  border-radius: 0;
+}
+
+.show-img {
+  min-width: 200px;
+}
+
+.card {
+  height: 500px;
+}
+
+.card-header {
+  height: 300px;
+}
+
+.card-body {
+  overflow: auto;
+}
+
+.card-img-top {
+  height: 100%;
+  object-fit: contain;
+}

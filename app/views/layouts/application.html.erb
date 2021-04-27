@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- Primary Meta Tags -->
+    <title>BookStore</title>
+    <meta name="title" content="BookStore">
+    <meta name="description" content="Book Store is a web application where sellers can sell their books and buyers can buy any book they want, provided they have enough money.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://roberto-book-store.herokuapp.com/">
+    <meta property="og:title" content="BookStore">
+    <meta property="og:description" content="Book Store is a web application where sellers can sell their books and buyers can buy any book they want, provided they have enough money.">
+    <meta property="og:image" content="https://user-images.githubusercontent.com/33432289/115065751-28c17100-9eb4-11eb-82e1-3cdee58cde3c.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://roberto-book-store.herokuapp.com/">
+    <meta property="twitter:title" content="BookStore">
+    <meta property="twitter:description" content="Book Store is a web application where sellers can sell their books and buyers can buy any book they want, provided they have enough money.">
+    <meta property="twitter:image" content="https://user-images.githubusercontent.com/33432289/115065751-28c17100-9eb4-11eb-82e1-3cdee58cde3c.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <header>
+      <%= render 'layouts/navbar' %>
+    </header>
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= notice %></div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger"><%= alert %></div>
+    <% end %>
+    <main class="flex-fill">
+      <%= yield %>
+    </main>
+    <%= render 'layouts/footer' %>
+  </body>
+</html>
