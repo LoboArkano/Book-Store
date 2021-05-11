@@ -32,9 +32,9 @@
                 label_html: { class: 'font-weight-bold' },
                 input_html: { min: 0, class: 'form-control' } %>
   </div>
+
   <%= f.label :picture, 'Add an image: ', class: 'font-weight-bold' %>
-  <%= f.file_field :picture, direct_upload: true %>
-  </div>
+  <%= f.file_field :picture, direct_upload: true, required: true %>
 
   <div class="actions my-3">
     <%= f.button :submit, class: 'btn btn-success' %>
